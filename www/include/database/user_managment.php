@@ -32,7 +32,7 @@ function register_user($username, $password, $email){
 
 }
 // Function to login a user
-function register_password($username, $password){
+function login_user($username, $password){
     $conn = getDatabaseConnection();  // connect to the database
     // validate the inputs
     if(!sqlinjection_test($username) || !sqlinjection_test($password)){
@@ -50,4 +50,5 @@ function register_password($username, $password){
     }
 
 }
+
 ?>
