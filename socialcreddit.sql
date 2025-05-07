@@ -101,21 +101,22 @@ INSERT INTO `topic` (`ID`, `Name`) VALUES
 
 CREATE TABLE `users` (
   `ID` int(11) NOT NULL,
-  `Name` text NOT NULL,
+  `username` text NOT NULL,
   `DateCreated` date NOT NULL DEFAULT current_timestamp(),
   `SocialCredit` int(11) NOT NULL DEFAULT 0,
   `isadmin` tinyint(1) NOT NULL DEFAULT 0,
   `email` text DEFAULT NULL
+  `passwordhash` text NOT NULL,
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_german2_ci;
 
 --
 -- Daten für Tabelle `users`
 --
 
-INSERT INTO `users` (`ID`, `Name`, `DateCreated`, `SocialCredit`, `isadmin`, `email`) VALUES
-(1, 'Hans Jürgen', '2025-04-30', 0, 0, 'hans-jürgen@jurgen.de'),
-(2, 'Gertruhde', '2025-04-30', 0, 0, 'gertruhde@vivopro.de'),
-(3, 'admin', '2025-04-30', 0, 1, 'admin@admin.admin');
+INSERT INTO `users` (`ID`, `username`, `DateCreated`, `SocialCredit`, `isadmin`, `email`. `passwordhash`) VALUES
+(1, 'figgi', '2025-04-30', 0, 0, 'hans-jürgen@jurgen.de', ''),
+(2, 'Gertruhde', '2025-04-30', 0, 0, 'gertruhde@vivopro.de', ''),
+(3, 'admin', '2025-04-30', 0, 1, 'admin@admin.admin', '');
 
 --
 -- Indizes der exportierten Tabellen

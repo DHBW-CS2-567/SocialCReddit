@@ -10,4 +10,6 @@ function getDatabaseConnection() {
     // Create connection
     return new mysqli($servername, $username, $password, $dbname);
 }
+
+
 ?>
