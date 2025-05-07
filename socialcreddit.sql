@@ -149,7 +149,7 @@ ALTER TABLE `topic`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`ID`),
-  ADD UNIQUE KEY `Name` (`Name`) USING HASH;
+  ADD UNIQUE KEY `username` (`username`) USING HASH;
 
 --
 -- AUTO_INCREMENT für exportierte Tabellen
