@@ -1,129 +1,59 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <link rel="stylesheet" href="style.css">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>sunshine tours</title>
+  <meta charset="UTF-8">
+  <title>SocialCReddit</title>
 </head>
 <body>
-    <header>
-        <h1>sunshine tours - Städtereise Buchung</h1>
-        <h2>Die beste Reisebuchungsseite der Welt</h2>
-    </header>
+  <!-- Header -->
+  <header style="display: flex; justify-content: space-between; align-items: center; padding: 1em; background-color: #1a1a1a; color: white;">
+    <div>
+      <h1 style="display: inline; color: white;"><span style="color: white;">SocialC</span><span style="color: #f15e15;">Reddit</span></h1>
+      <span style="margin-left: 1em;">DAS FORUM FÜR ALLE OHNE SCHLECHTEN HINTERGEDANKEN</span>
+    </div>
+    <div>
+      <span>SCR: 9999999</span>
+      <span style="margin-left: 1em;">👤</span>
+    </div>
+  </header>
 
-    <main>
-        <form action="/submit-booking" method="POST">
-            <section>
-                <!-- Reiseziel Auswahl -->
-                <fieldset>
-                    <legend>Reiseziel</legend>
-                    <label for="destination">Wählen Sie Ihr Reiseziel:</label>
-                    <select id="destination" name="destination" required>
-                        <option value="Berlin">Berlin</option>
-                        <option value="Paris">Paris</option>
-                        <option value="Rom">Rom</option>
-                        <option value="London">London</option>
-                        <option value="Barcelona">Barcelona</option>
-                    </select>
-                </fieldset>
-            </section>
+  <!-- Navigation Tabs -->
+  <nav style="display: flex; justify-content: center; gap: 1em; margin: 1em;">
+    <button>Popular</button>
+    <button>Topic 1</button>
+    <button>Topic 2</button>
+    <button>Topic 3</button>
+    <button>Topic 4</button>
+    <button>More</button>
+  </nav>
 
-            <section id="grid-form">
-                <!-- Linke Spalte -->
-                <div>
-                    <!-- Adressfeld -->
-                    <fieldset>
-                        <legend>Ihre Daten</legend>
-                        <label for="firstName">Vorname:</label>
-                        <input type="text" id="firstName" name="firstName" required><br>
+  <!-- Main Content -->
+  <main style="width: 80%; margin: auto;">
+    <!-- Repeat this block for each post -->
+    <div style="display: flex; background-color: #ccc; padding: 1em; margin-bottom: 1em; border-radius: 8px;">
+      <div style="width: 20%; text-align: center;">
+        <div>👤</div>
+        <div>User1</div>
+        <div>Scr: 1234567</div>
+      </div>
+      <div style="width: 80%;">
+        <p>
+          Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla Bla
+        </p>
+        <div style="display: flex; justify-content: space-between; font-size: 0.8em; color: gray;">
+          <span>Topic</span>
+          <span>00:00, 01.01.2000</span>
+        </div>
+      </div>
+    </div>
 
-                        <label for="lastName">Nachname:</label>
-                        <input type="text" id="lastName" name="lastName" required><br>
-
-                        <label for="address">Adresse:</label>
-                        <input type="text" id="address" name="address" required><br>
-
-                        <label for="phone">Telefonnummer:</label>
-                        <input type="tel" id="phone" name="phone" required><br>
-
-                        <label for="email">E-Mail-Adresse:</label>
-                        <input type="email" id="email" name="email" required>
-                    </fieldset>
-
-                    <!-- Personenanzahl -->
-                    <fieldset>
-                        <legend>Anzahl der Personen</legend>
-                        <label for="numPersons">Anzahl der Personen (max. 4):</label>
-                        <input type="number" id="numPersons" name="numPersons" min="1" max="4" required><br>
-
-                        <label>Vor- und Nachnamen der zusätzlichen Personen:</label><br>
-                        <input type="text" name="additionalPerson1" placeholder="Person 1"><br>
-                        <input type="text" name="additionalPerson2" placeholder="Person 2"><br>
-                        <input type="text" name="additionalPerson3" placeholder="Person 3">
-                    </fieldset>
-                </div>
-
-                <!-- Rechte Spalte -->
-                <div>
-                    <!-- Zimmer und Reisezeitraum -->
-                    <fieldset>
-                        <legend>Zimmer und Reisezeitraum</legend>
-                        <label for="numRooms">Anzahl der benötigten Zimmer oder Betten:</label>
-                        <input type="number" id="numRooms" name="numRooms" min="1" required><br>
-
-                        <label for="arrival">Anreisedatum:</label>
-                        <input type="date" id="arrival" name="arrival" required><br>
-
-                        <label for="departure">Abreisedatum:</label>
-                        <input type="date" id="departure" name="departure" required>
-                    </fieldset>
-
-                    <!-- Zahlungsinformationen -->
-                    <fieldset>
-                        <legend>Zahlungsinformationen</legend>
-                        <label for="creditCard">Kreditkartennummer:</label>
-                        <input type="text" id="creditCard" name="creditCard" pattern="[0-9]{16}" required>
-                    </fieldset>
-
-                    <!-- Raucher/Nichtraucher -->
-                    <fieldset>
-                        <legend>Raucher oder Nichtraucher</legend>
-                        <label><input type="radio" name="smokingPreference" value="raucher" required> Raucher</label><br>
-                        <label><input type="radio" name="smokingPreference" value="nichtraucher" required> Nichtraucher</label>
-                    </fieldset>
-                </div>
-            </section>
-
-            <section>
-                <!-- Ausflugsziele -->
-                <fieldset>
-                    <legend>Ausflugsziele</legend>
-                    <label><input type="checkbox" name="excursions" value="museum"> Museumsbesuch</label><br>
-                    <label><input type="checkbox" name="excursions" value="citytour"> Stadtrundfahrt</label><br>
-                    <label><input type="checkbox" name="excursions" value="boat"> Bootstour</label>
-                </fieldset>
-            </section>
-
-            <section>
-                <!-- Anmerkungen -->
-                <fieldset>
-                    <legend>Anmerkungen</legend>
-                    <label for="comments">Anmerkungen:</label><br>
-                    <textarea id="comments" name="comments" rows="4" cols="50" placeholder="Ihre Anmerkungen..."></textarea>
-                </fieldset>
-            </section>
-
-            <section>
-                <!-- Buttons -->
-                <button type="submit" formaction="http://dhbw.udoerdmann.net/formcheck.php">Buchung abschicken</button>
-                <button type="reset">Zurücksetzen</button>
-            </section>
-        </form>
-    </main>
-
-    <footer>
-        <p>&copy; 2024 sunshine tours</p>
-    </footer>
+    <!-- More posts... -->
+    <!-- Just copy and paste the above block -->
+    
+    <!-- Load More -->
+    <div style="text-align: center; margin: 2em;">
+      <button>▼</button>
+    </div>
+  </main>
 </body>
 </html>
