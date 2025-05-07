@@ -6,12 +6,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['uname'];
     $output = login_user($username, $password); // Call the function to handle login
     if ($output) {
-        echo "Login successful!";
-        sleep(2);
         $url = "index.php";
         session_start(); # Neue Session oder vorhandene fortsetzen
-        $_SESSION['name'] = $_POST['uname']; # Session-Variable setzen";
-        $SessionTimeOut = 5; # Timeout in Sekunden -> ggf. aus Config-Datei
+        $_SESSION['username'] = $_POST['uname']; # Session-Variable setzen";
+        $SessionTimeOut = 180; # Timeout in Sekunden -> ggf. aus Config-Datei
         header('Location: '.$url);
         die();
         // Redirect to index.php or another page
