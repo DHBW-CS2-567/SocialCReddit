@@ -1,5 +1,5 @@
 <?php
-require 'include\database\user_managment.php';
+require "include/database/user_managment.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];

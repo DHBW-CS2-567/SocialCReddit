@@ -1,6 +1,5 @@
 <?php
-require 'include\database\user_managment.php';
-
+require "include/database/user_managment.php"; // usermangament.php
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST['psw'];
