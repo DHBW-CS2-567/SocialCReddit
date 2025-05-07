@@ -5,7 +5,7 @@ require 'include\database\user_managment.php';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST['psw'];
     $username = $_POST['uname'];
-    $output = register_password($username, $password); // Call the function to handle login
+    $output = login_user($username, $password); // Call the function to handle login
     if ($output) {
         echo "Login successful!";
         sleep(2);
