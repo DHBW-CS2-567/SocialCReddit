@@ -15,31 +15,21 @@
         }
         require_once "include/database/content_managment.php"; // Include the content management file
 
-
-        // horizontel bar with the popular topics, from the database (content_managment.php) be clickable to open /topic.php?name=topicname
-        $popular_topics = get_topics(); // Fetch topics using your existing function
-
-        if ($popular_topics && !empty($popular_topics)) {
-            echo '<div class="popular-topics-bar">';
-            echo '<span>Popular Topics: </span>';
-            foreach ($popular_topics as $topic) {
-                // Assuming $topic is an array like ['ID' => 1, 'Name' => 'Essen']
-                // Adjust 'Name' if your array key for the topic name is different
-                echo '<a href="topic.php?name=' . urlencode($topic['Name']) . '">' . htmlspecialchars($topic['Name']) . '</a>';
-            }
-            echo '</div>';
+        // Get the topic name from the URL
+        $topic_name = isset($_GET['name']) ? $_GET['name'] : null;
+        if ($topic_name) {
+            // Fetch posts for the specific topic
+            $topic_posts = get_posts(topic_name: $topic_name); // Adjust this function to accept topic name or ID
         } else {
-            echo '<div class="popular-topics-bar"><span>No popular topics found.</span></div>';
+            echo '<p>No topic specified.</p>';
+            exit();
         }
-
-
-                // Homefeed with the newest posts
-        $home_feed_posts = get_homefeed(); // Fetches posts using your function
-
-        if ($home_feed_posts && !empty($home_feed_posts)) {
-            echo '<div class="home-feed">';
-            echo '<h2>Latest Posts</h2>';
-            foreach ($home_feed_posts as $post) {
+        // Display the topic name
+        echo '<h1>' . htmlspecialchars($topic_name) . '</h1>';
+        // Display the posts for the topic
+        if ($topic_posts && !empty($topic_posts)) {
+            echo '<div class="topic-posts">';
+            foreach ($topic_posts as $post) {
                 echo '<div class="post-preview">';
                 // Assuming 'Name' contains the post title or content preview
                 // and 'created_at' is the timestamp
@@ -54,9 +44,9 @@
             }
             echo '</div>';
         } else {
-            echo '<div class="home-feed"><p>No posts to display yet.</p></div>';
+            echo '<div class="topic-posts"><p>No posts to display in this topic yet.</p></div>';
         }
-       
+
         ?>
         
 

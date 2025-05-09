@@ -32,7 +32,8 @@ CREATE TABLE `kommentare` (
   `PostID` bigint(20) NOT NULL,
   `Name` text NOT NULL,
   `Likes` int(11) NOT NULL,
-  `UserID` int(11) DEFAULT NULL
+  `UserID` int(11) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_german2_ci;
 
 --
@@ -55,7 +56,8 @@ CREATE TABLE `posts` (
   `Name` text NOT NULL,
   `Likes` int(11) NOT NULL,
   `Pinned` tinyint(1) NOT NULL,
-  `UserID` int(11) NOT NULL
+  `UserID` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_german2_ci;
 
 --
