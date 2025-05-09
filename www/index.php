@@ -8,13 +8,8 @@
     <body>
     <?php
         // if user not logged in, redirect to login page check via session from login.php
-        session_start();
-        if (!isset($_SESSION['username'])) {
-            header('Location: login.php');
-            exit();
-        }
-        require_once "include/database/content_managment.php"; // Include the content management file
 
+        require_once "include/database/content_managment.php"; // Include the content management file
 
         // horizontel bar with the popular topics, from the database (content_managment.php) be clickable to open /topic.php?name=topicname
         $popular_topics = get_topics(); // Fetch topics using your existing function

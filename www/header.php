@@ -6,3 +6,7 @@
 	    <link rel="stylesheet" href="assets/css/styles.css">
     </head>
 </html>
+<?php
+// Include the database connection file
+include "include/navbar.php"; // Include the navigation bar
+?>

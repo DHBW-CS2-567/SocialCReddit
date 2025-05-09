@@ -7,12 +7,8 @@
     </head>
     <body>
     <?php
+      
         // if user not logged in, redirect to login page check via session from login.php
-        session_start();
-        if (!isset($_SESSION['username'])) {
-            header('Location: login.php');
-            exit();
-        }
         require_once "include/database/content_managment.php"; // Include the content management file
 
         // Get the topic name from the URL

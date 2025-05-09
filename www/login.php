@@ -1,6 +1,7 @@
 <?php
 require "include/database/user_managment.php"; // usermangament.php
 
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST['psw'];
     $username = $_POST['uname'];
@@ -8,7 +9,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($output) {
         $url = "index.php";
         session_start(); # Neue Session oder vorhandene fortsetzen
-        $_SESSION['username'] = $_POST['uname']; # Session-Variable setzen";
+        $user_temp_data = get_user_data($username); # Userdaten abfragen
+        
+        $_SESSION['username'] = $user_temp_data['username']; # Session-Variable setzen
+        $_SESSION['userID'] = $user_temp_data['ID']; # Session-Variable setzen
+        $_SESSION['email'] = $user_temp_data['email']; # Session-Variable setzen
+        $_SESSION['socialcredit'] = $user_temp_data['SocialCredit']; # Session-Variable setzen
+
         $SessionTimeOut = 180; # Timeout in Sekunden -> ggf. aus Config-Datei
         header('Location: '.$url);
         die();
