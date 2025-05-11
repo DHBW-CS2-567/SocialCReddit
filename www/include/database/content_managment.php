@@ -9,7 +9,7 @@ function get_posts($topic_id = null, $topic_name = null, $limit = 10, $sort_by =
         $sql = 'SELECT * FROM posts WHERE TopicID = "' . $topic_id . '" ORDER BY "' . $sort_by . '" "' . $sort_order . '"LIMIT ' . $limit;
     } elseif ($topic_name) {
         // If topic_name is provided, fetch posts for that topic
-        $sql = 'SELECT * FROM posts WHERE TopicID = (SELECT `ID` FROM topic WHERE topic.name = "'. $topic_name .'") ORDER BY "' . $sort_by . '" "' . $sort_order . '"LIMIT ' . $limit;
+        $sql = 'SELECT * FROM posts WHERE TopicID = (SELECT `ID` FROM topic WHERE topic.name = "' . $topic_name . '") ORDER BY "' . $sort_by . '" "' . $sort_order . '"LIMIT ' . $limit;
     } else {
         // If neither is provided, fetch all posts
         $sql = 'SELECT * FROM posts ORDER BY "' . $sort_by . '" "' . $sort_order . '"LIMIT ' . $limit;
@@ -36,11 +36,15 @@ function get_topics($limit = 10, $sort_by = "popular")
 {
     $conn = getDatabaseConnection();
     // select topics with the most posts
-    if ($sort_by == "popular") {
-        $sql = 'SELECT * FROM topic ORDER BY (SELECT COUNT(*) FROM posts WHERE posts.TopicID = topic.ID) DESC LIMIT ' . $limit;
+    if ($limit == 0) {
+        $sql = 'SELECT * FROM topic ORDER BY (SELECT COUNT(*) FROM posts WHERE posts.TopicID = topic.ID) DESC';
     } else {
-        // select topics with the most likes
-        $sql = 'SELECT * FROM topic ORDER BY ID DESC LIMIT ' . $limit;
+        if ($sort_by == "popular") {
+            $sql = 'SELECT * FROM topic ORDER BY (SELECT COUNT(*) FROM posts WHERE posts.TopicID = topic.ID) DESC LIMIT ' . $limit;
+        } else {
+            // select topics with the most likes
+            $sql = 'SELECT * FROM topic ORDER BY ID DESC LIMIT ' . $limit;
+        }
     }
     $result = $conn->query($sql);
     $conn->close(); // Close the database connection
@@ -74,5 +78,41 @@ function get_homefeed($limit = 10, $sort_by = "created_at", $sort_order = "DESC"
         return $posts;
     } else {
         return false; // No posts found
+    }
+}
+
+function create_topic($name)
+{
+    $conn = getDatabaseConnection();
+    $sql = 'INSERT INTO topic (Name) VALUES ("' . $name . '")';
+    $result = $conn->query($sql);
+    if ($result) {
+        $topic_id = $conn->insert_id; // Get the ID of the newly created topic
+        $conn->close(); // Close the database connection
+        return $topic_id; // Return the ID of the new topic
+    }
+}
+
+function create_post($userid, $topic, $content)
+{
+    $conn = getDatabaseConnection();
+
+    $check_topic = 'SELECT * FROM topic WHERE Name = "' . $topic . '"';
+    $check_result = $conn->query($check_topic);
+    if ($check_result->num_rows > 0){
+        $topicid = $check_result->fetch_assoc()['ID']; // Get the ID of the existing topic
+    } else {
+        $topicid = create_topic($topic); // Create the topic if it doesn't exist
+    }
+    $sql = 'INSERT INTO posts (TopicID, UserID, Content, Likes, Pinned) VALUES (' . $topicid . ', ' . $userid . ', "' . $content . '", 0, 0)';
+    $result = $conn->query($sql);
+    
+    if ($result){
+        $post_id = $conn->insert_id; // Get the ID of the newly created post
+        $conn->close(); // Close the database connection
+        return $post_id; // Return the ID of the new post
+    } else {
+        $conn->close(); // Close the database connection
+        return false; // Return false if the post creation failed    
     }
 }

@@ -1,4 +1,4 @@
-    <?php
+<?php
  
         session_start();
         if (!isset($_SESSION['username'])) {
@@ -16,6 +16,11 @@
             <span class="navbar-tagline">DAS FORUM FÜR ALLE OHNE SCHLECHTEN HINTERGEDANKEN</span>
         </div>
         <div class="navbar-user-info">
+            <a href="create.php" class="user-icon-link">
+                <div class="user-icon">
+                        <span class="user-icon-letter"><b>+</b></span>
+                </div>
+            </a>
             <span class="user-social-credit">SCr: <?php echo $social_credit; ?></span>
             <a href="profile.php" class="user-icon-link">
                 <div class="user-icon">
@@ -26,6 +31,8 @@
                     <?php endif; ?>
                 </div>
             </a>
+
+
             <a href="include/logout.php" class="logout-button">Logout</a>
         </div>
     </nav>

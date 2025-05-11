@@ -18,8 +18,6 @@
             echo '<div class="popular-topics-bar">';
             echo '<span>Popular Topics: </span>';
             foreach ($popular_topics as $topic) {
-                // Assuming $topic is an array like ['ID' => 1, 'Name' => 'Essen']
-                // Adjust 'Name' if your array key for the topic name is different
                 echo '<a href="topic.php?name=' . urlencode($topic['Name']) . '">' . htmlspecialchars($topic['Name']) . '</a>';
             }
             echo '</div>';
@@ -28,7 +26,7 @@
         }
 
 
-                // Homefeed with the newest posts
+        // Homefeed with the newest posts
         $home_feed_posts = get_homefeed(); // Fetches posts using your function
 
         if ($home_feed_posts && !empty($home_feed_posts)) {
@@ -36,15 +34,10 @@
             echo '<h2>Latest Posts</h2>';
             foreach ($home_feed_posts as $post) {
                 echo '<div class="post-preview">';
-                // Assuming 'Name' contains the post title or content preview
-                // and 'created_at' is the timestamp
-                // You might want to fetch UserID and then get the username
-                echo '<h3><a href="post.php?id=' . $post['ID'] . '">' . htmlspecialchars($post['Name']) . '</a></h3>'; // Link to full post
+                echo '<h3><a href="post.php?id=' . $post['ID'] . '">' . htmlspecialchars($post['Content']) . '</a></h3>'; // Link to full post
                 // Format the date for better readability
                 $date = date_create($post['created_at']);
                 echo '<p class="post-meta">Posted on ' . date_format($date, 'F j, Y, g:i a') . '</p>';
-                // You could add a snippet of the post content here if 'Name' is just the title
-                // echo '<p>' . htmlspecialchars(substr($post['Content'], 0, 150)) . '...</p>'; // Example for content snippet
                 echo '</div>';
             }
             echo '</div>';
@@ -53,7 +46,6 @@
         }
        
         ?>
-        
 
     </body>
 </html>

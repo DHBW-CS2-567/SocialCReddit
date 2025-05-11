@@ -90,6 +90,9 @@
     background-color: #777;
 }
 
+
+
+
 /* Responsive Anpassungen (optional, aber empfohlen) */
 @media (max-width: 768px) {
     .navbar {

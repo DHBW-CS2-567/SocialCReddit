@@ -20,17 +20,17 @@
             echo '<p>No topic specified.</p>';
             exit();
         }
-        // Display the topic name
-        echo '<h1>' . htmlspecialchars($topic_name) . '</h1>';
+
         // Display the posts for the topic
         if ($topic_posts && !empty($topic_posts)) {
-            echo '<div class="topic-posts">';
+            echo '<div class="home-feed">';
+            echo '<h1>' . htmlspecialchars($topic_name) . '</h1>';
             foreach ($topic_posts as $post) {
                 echo '<div class="post-preview">';
                 // Assuming 'Name' contains the post title or content preview
                 // and 'created_at' is the timestamp
                 // You might want to fetch UserID and then get the username
-                echo '<h3><a href="post.php?id=' . $post['ID'] . '">' . htmlspecialchars($post['Name']) . '</a></h3>'; // Link to full post
+                echo '<h3><a href="post.php?id=' . $post['ID'] . '">' . htmlspecialchars($post['Content']) . '</a></h3>'; // Link to full post
                 // Format the date for better readability
                 $date = date_create($post['created_at']);
                 echo '<p class="post-meta">Posted on ' . date_format($date, 'F j, Y, g:i a') . '</p>';
