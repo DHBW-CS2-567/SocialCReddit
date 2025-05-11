@@ -8,9 +8,7 @@
     <body>
     <?php
       
-        // if user not logged in, redirect to login page check via session from login.php
-        require_once "include/database/content_managment.php"; // Include the content management file
-
+        include "include/topicbar.php"; // Include the topic bar
         // Get the topic name from the URL
         $topic_name = isset($_GET['name']) ? $_GET['name'] : null;
         if ($topic_name) {

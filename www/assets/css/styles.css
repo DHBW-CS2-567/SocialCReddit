@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 body {
-    /*font-family: "Archivo Black", sans-serif;  TOTE FONT*/
+    font-family: "Open Sans", sans-serif;
     line-height: 1.6;
     margin: 10px;
     padding: 0;
@@ -10,7 +10,7 @@ body {
 }
 
 h1 {
-    /*font-family: "Archivo Black", sans-serif;*/
+    font-family: "Open Sans", sans-serif;
     color: #333;
 }
 
@@ -29,7 +29,7 @@ h1 {
 .popular-topics-bar a {
     margin: 0 8px; /* Add some horizontal margin between links */
     text-decoration: none;
-    color: #007bff;
+    color: black;
     padding: 5px 10px; /* Add some padding to make links easier to click */   
     border-radius: 4px; /* Optional: rounded corners for links */
     transition: background-color 0.3s ease; /* Smooth transition for hover effect */
@@ -37,7 +37,7 @@ h1 {
 .popular-topics-bar a:hover {
     text-decoration: none; /* Remove underline on hover if you prefer */
     background-color: #e9ecef; /* Light background on hover */
-    color: #0056b3; /* Darker text on hover */
+    color: #e06830; /* Darker text on hover */
 }
 
 
@@ -51,6 +51,37 @@ h1 {
     margin-bottom: 25px;
     color: #333;
 }
+
+.home-feed div {
+    margin-bottom: 20px; /* Space between posts */
+    padding: 15px;
+    border-radius: 8px;
+    background-color: #e1e1e1;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.home-feed div:hover {
+    background-color: #e06830; /* Light background on hover */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Slight shadow on hover */
+}
+
+.home-feed a {
+    text-decoration: none;
+    color: #000000;
+    font-weight: bold;
+}
+.home-feed a:hover {
+    text-decoration: none;
+    color: black;
+}
+
+
+.post-preview h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+
 .post-preview {
     border: 1px solid #e0e0e0;
     padding: 20px;
@@ -59,19 +90,7 @@ h1 {
     background-color: #fff;
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
-.post-preview h3 {
-    margin-top: 0;
-    margin-bottom: 10px;
-}
-.post-preview h3 a {
-    text-decoration: none;
-    color: #007bff;
-    font-weight: bold;
-}
-.post-preview h3 a:hover {
-    text-decoration: underline;
-    color: #0056b3;
-}
+
 .post-preview .post-meta {
     font-size: 0.85em;
     color: #555;
