@@ -31,6 +31,24 @@ function get_posts($topic_id = null, $topic_name = null, $limit = 10, $sort_by =
     //um zum beispiel den name zu wollen muss mann nur $posts[0]['Name'] aufrufen fur den ersten post, alle einfach foreach schleife
 
 }
+// function get single post content for the post.php site
+function get_post_content($post_id)
+{
+    $conn = getDatabaseConnection();
+    $sql = 'SELECT post.Content, post.TopicID, post.Likes, post.Pinned, user.ID, user.username, user.DateCreated, user.SocialCredit, user.isadmin, user.email FROM posts AS post JOIN users AS user ON post.UserID = user.ID WHERE post.ID = ' . $post_id;
+    $result = $conn->query($sql);
+    $conn->close();
+    $result = $result->fetch_assoc();
+    return $result;
+}
+
+// function to get comments from a post via post_id for post.php
+function get_comments($post_id)
+{
+    $conn = getDatabaseConnection();
+    $sql = 'SELECT comment.'; //TODO: Tabellenspalte umbenennen von Name zu content
+}
+
 
 function get_topics($limit = 10, $sort_by = "popular")
 {
@@ -99,15 +117,15 @@ function create_post($userid, $topic, $content)
 
     $check_topic = 'SELECT * FROM topic WHERE Name = "' . $topic . '"';
     $check_result = $conn->query($check_topic);
-    if ($check_result->num_rows > 0){
+    if ($check_result->num_rows > 0) {
         $topicid = $check_result->fetch_assoc()['ID']; // Get the ID of the existing topic
     } else {
         $topicid = create_topic($topic); // Create the topic if it doesn't exist
     }
     $sql = 'INSERT INTO posts (TopicID, UserID, Content, Likes, Pinned) VALUES (' . $topicid . ', ' . $userid . ', "' . $content . '", 0, 0)';
     $result = $conn->query($sql);
-    
-    if ($result){
+
+    if ($result) {
         $post_id = $conn->insert_id; // Get the ID of the newly created post
         $conn->close(); // Close the database connection
         return $post_id; // Return the ID of the new post
