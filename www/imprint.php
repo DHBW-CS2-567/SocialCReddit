@@ -1,6 +1,7 @@
 <?php include 'header.php'; ?>
 
 <body>
+<div class="imprint-container">
     <h1>Impressum</h1>
     <p><strong>Angaben gemäß § 5 TMG:</strong></p>
     <p>
@@ -21,5 +22,6 @@
     <p>
         Die Inhalte unserer Seiten wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte können wir jedoch keine Gewähr übernehmen.
     </p>
+</div>
 </body>
 </html>
