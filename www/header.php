@@ -6,7 +6,7 @@
 	    <link rel="stylesheet" href="assets/css/styles.css">
         <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     <!-- jQuery -->
-        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></scrip>
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <!-- jQuery UI JS -->
         <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
 

@@ -2,8 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>SocialCReddit</title>
-    <meta charset="UTF-8">
+    <link rel="stylesheet" href="assets/css/post.css">
     <?php include "header.php"; ?>
 </head>
 
@@ -29,10 +28,14 @@
                 $date = date_create($comment['created_at']);
                 echo '<p class="comment-meta">Commented by ' . htmlspecialchars($comment['username']) . ' on ' . date_format($date, 'F j, Y, g:i a') . '</p>';
                 echo '</div>';
+
             }
+
         } else {
             echo '<p>No comments yet.</p>';
+
         }
+        echo '</div>';
     } else {
         echo '<p>No Post under this ID found.</p>';
         exit();
