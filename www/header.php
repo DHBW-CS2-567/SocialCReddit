@@ -11,7 +11,13 @@
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <!-- jQuery UI JS -->
         <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
-
+        
+        <script>
+            function toggleMenu() {
+                const topicsList = document.querySelector('.popular-topics-bar .topics-list');
+                topicsList.classList.toggle('show'); // Toggle the "show" class
+            }
+        </script>
     </head>
 </html>
 <?php
