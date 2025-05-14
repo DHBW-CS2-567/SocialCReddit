@@ -2,6 +2,7 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
+  <<link rel="stylesheet" href="assets/css/main.css">
   <title>SocialCReddit</title>
 </head>
 <body>
