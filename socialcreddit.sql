@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `kommentare` (
   `ID` int(11) NOT NULL,
   `PostID` bigint(20) NOT NULL,
-  `Name` text NOT NULL,
+  `Content` text NOT NULL,
   `Likes` int(11) NOT NULL,
   `UserID` int(11) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
@@ -40,7 +40,7 @@ CREATE TABLE `kommentare` (
 -- Daten für Tabelle `kommentare`
 --
 
-INSERT INTO `kommentare` (`ID`, `PostID`, `Name`, `Likes`, `UserID`) VALUES
+INSERT INTO `kommentare` (`ID`, `PostID`, `Content`, `Likes`, `UserID`) VALUES
 (1, 2, 'Seh ich genau so!!', 0, 2),
 (2, 2, 'Seh ich genau so!!', 0, 2);
 

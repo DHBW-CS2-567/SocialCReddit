@@ -43,12 +43,24 @@ function get_post_content($post_id)
 }
 
 // function to get comments from a post via post_id for post.php
-function get_comments($post_id)
+
+
+function get_post_comments($post_id)
 {
     $conn = getDatabaseConnection();
-    $sql = 'SELECT comment.'; //TODO: Tabellenspalte umbenennen von Name zu content
+    $sql = 'SELECT kommentare.* FROM kommentare WHERE kommentare.PostID = ' . $post_id;
+    $result = $conn->query($sql);
+    $conn->close(); // Close the database connection
+    if ($result->num_rows > 0) {
+        $comments = array();
+        while ($row = $result->fetch_assoc()) {
+            $comments[] = $row;
+        }
+        return $comments;
+    } else {
+        return false; // No comments found
+    }
 }
-
 
 function get_topics($limit = 10, $sort_by = "popular")
 {
