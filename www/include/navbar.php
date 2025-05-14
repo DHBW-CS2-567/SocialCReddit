@@ -1,10 +1,5 @@
 <?php
- 
-        session_start();
-        if (!isset($_SESSION['username'])) {
-            header('Location: login.php');
-            exit();
-        }
+
 
     $username = isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : 'Guest';
     $social_credit = isset($_SESSION['socialcredit']) ? htmlspecialchars($_SESSION['socialcredit']) : '-';

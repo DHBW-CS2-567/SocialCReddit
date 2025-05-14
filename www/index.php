@@ -10,7 +10,7 @@
         include "include/topicbar.php"; // Include the topic bar
 
         // Homefeed with the newest posts
-        $home_feed_posts = get_homefeed(); // Fetches posts using your function
+        $home_feed_posts = get_homefeed(sort_order: 'ASC'); // Fetches posts using your function
 
         if ($home_feed_posts && !empty($home_feed_posts)) {
             echo '<div class="home-feed">';

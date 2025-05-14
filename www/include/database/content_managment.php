@@ -81,7 +81,7 @@ function get_topics($limit = 10, $sort_by = "popular")
 }
 
 
-function get_homefeed($limit = 10, $sort_by = "created_at", $sort_order = "DESC")
+function get_homefeed($limit = 10, $sort_by = "created_at", $sort_order = "ASC")
 {
     $conn = getDatabaseConnection();
     $sql = 'SELECT * FROM posts ORDER BY "' . $sort_by . '" "' . $sort_order . '"LIMIT ' . $limit;

@@ -5,6 +5,7 @@
     <title>SocialCReddit - Create Post</title>
     <meta charset="UTF-8">
     <?php include "header.php"; ?>
+    <link rel="stylesheet" href="assets/css/create.css">
 </head>
 
 
@@ -27,6 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 
 <body>
+
     <?php
     // Side to create new posts, topics can only created by an admin, after an request
     // Fetch all topics for the autocomplete
@@ -38,23 +40,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
     ?>
-
-    <h2>Create a New Post</h2>
-    <form action="create.php" method="post">
-        <div id="create_form">
-            <div>
-                <label for="topic"><b>Topic</b></label><br>
-                <input type="text" placeholder="Start typing a topic..." name="topic" id="topic_input" required>
+    <div class="create">
+        <h2>Create a New Post</h2>
+        <form action="create.php" method="post">
+            <div id="create_form">
+                <div>
+                    <label for="topic"><b>Topic</b></label><br>
+                    <input type="text" placeholder="Start typing a topic..." name="topic" id="topic_input" required>
+                </div>
+                <br>
+                <div>
+                    <label for="content"><b>Content</b></label><br>
+                    <textarea placeholder="I have something to tell" name="content" rows="5" cols="50" required></textarea>
+                </div>
+                <br>
+                <button type="submit">Create Post</button>
             </div>
-            <br>
-            <div>
-                <label for="content"><b>Content</b></label><br>
-                <textarea placeholder="I have something to tell" name="content" rows="5" cols="50" required></textarea>
-            </div>
-            <br>
-            <button type="submit">Create Post</button>
-        </div>
-    </form>
+        </form>
+    </div>
 
     <script>
         // jQuery UI Autocomplete for topic input
