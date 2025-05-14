@@ -30,16 +30,17 @@ SET time_zone = "+00:00";
 CREATE TABLE `kommentare` (
   `ID` int(11) NOT NULL,
   `PostID` bigint(20) NOT NULL,
-  `Name` text NOT NULL,
+  `Content` text NOT NULL,
   `Likes` int(11) NOT NULL,
-  `UserID` int(11) DEFAULT NULL
+  `UserID` int(11) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_german2_ci;
 
 --
 -- Daten für Tabelle `kommentare`
 --
 
-INSERT INTO `kommentare` (`ID`, `PostID`, `Name`, `Likes`, `UserID`) VALUES
+INSERT INTO `kommentare` (`ID`, `PostID`, `Content`, `Likes`, `UserID`) VALUES
 (1, 2, 'Seh ich genau so!!', 0, 2),
 (2, 2, 'Seh ich genau so!!', 0, 2);
 
@@ -52,17 +53,18 @@ INSERT INTO `kommentare` (`ID`, `PostID`, `Name`, `Likes`, `UserID`) VALUES
 CREATE TABLE `posts` (
   `ID` bigint(20) NOT NULL,
   `TopicID` int(11) NOT NULL,
-  `Name` text NOT NULL,
+  `Content` text NOT NULL,
   `Likes` int(11) NOT NULL,
   `Pinned` tinyint(1) NOT NULL,
-  `UserID` int(11) NOT NULL
+  `UserID` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_german2_ci;
 
 --
 -- Daten für Tabelle `posts`
 --
 
-INSERT INTO `posts` (`ID`, `TopicID`, `Name`, `Likes`, `Pinned`, `UserID`) VALUES
+INSERT INTO `posts` (`ID`, `TopicID`, `Content`, `Likes`, `Pinned`, `UserID`) VALUES
 (1, 8, '#Willkommen im Forum der CCP.\r\nSchreibt rein worauf ihr bock habt aber bleibt im topic.\r\nMeinungsfreiheit wird hier *sehr* wertgeschätzt.', 0, 1, 3),
 (2, 9, '#Miau', 0, 0, 3);
 
