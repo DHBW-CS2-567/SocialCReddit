@@ -1,7 +1,7 @@
 <?php 
-include_once 'mysql_input_valid.php';
-include_once 'database_connector.php';
-include_once 'password_hashing.php';
+include 'mysql_input_valid.php';
+include 'database_connector.php';
+include 'password_hashing.php';
 
 // Function to register a new user
 function register_user($username, $password, $email){
@@ -32,7 +32,7 @@ function register_user($username, $password, $email){
 
 }
 // Function to login a user
-function register_password($username, $password){
+function login_user($username, $password){
     $conn = getDatabaseConnection();  // connect to the database
     // validate the inputs
     if(!sqlinjection_test($username) || !sqlinjection_test($password)){
@@ -50,4 +50,24 @@ function register_password($username, $password){
     }
 
 }
+
+function get_user_data($username){
+    $conn = getDatabaseConnection();  // connect to the database
+    // validate the inputs
+    if(!sqlinjection_test($username)){
+        return false; // Invalid input
+    }
+    $sql = 'SELECT * FROM users WHERE username = "'.$username.'"';
+    $result = $conn->query($sql); // Execute the query
+    if($result->num_rows > 0){ // User exists
+        $user_data = $result->fetch_assoc(); // Fetch user data
+        $conn->close(); // Close the database connection
+        return $user_data; // Return user data
+    } else {
+        $conn->close(); // Close the database connection
+        return false; // User not found
+    }
+
+}
+
 ?>
