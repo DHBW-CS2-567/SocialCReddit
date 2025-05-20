@@ -1,7 +1,7 @@
 <?php include 'header.php'; ?>
 
 <body>
-fgfss<div class="imprint-container">
+<div class="imprint-container">
     <h1>Impressum</h1>
     <p><strong>Angaben gemäß § 5 TMG:</strong></p>
     <p>
