@@ -1,8 +1,4 @@
-<?php include "header.php"; ?>
-
 <body>
-    <?php include "include/topicbar.php"; ?>
-
     <div id="feed-container"></div>
 
     <script>

@@ -1,14 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <link rel="stylesheet" href="assets/css/post.css">
-    <?php include "header.php"; ?>
-</head>
+<?php include "header.php"; ?>
 
 <body>
     <?php
-    include "include/topicbar.php";
+    require_once "include/topicbar.php";
     $post_id = isset($_GET['id']) ? $_GET['id'] : null; // get post id from url or set it null if not there
     if ($post_id) {
         $post_content = get_post_content(post_id: $post_id);
