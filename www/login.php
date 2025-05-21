@@ -15,6 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['userID'] = $user_temp_data['ID']; # Session-Variable setzen
         $_SESSION['email'] = $user_temp_data['email']; # Session-Variable setzen
         $_SESSION['socialcredit'] = $user_temp_data['SocialCredit']; # Session-Variable setzen
+        $_SESSION['isadmin'] = $user_temp_data['isadmin']; # Session-Variable setzen
 
         $SessionTimeOut = 180; # Timeout in Sekunden -> ggf. aus Config-Datei
         header('Location: '.$url);
