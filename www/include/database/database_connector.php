@@ -3,7 +3,7 @@
 function getDatabaseConnection() {
     // to use, set a variable to the return value of this function.
     try{
-	$json = file_get_contents("../../msql.json");
+	$json = file_get_contents("/msql.json");
 	if ($json === false) {
 	    throw new Exception("Failed to read msql.json.");
 	}
