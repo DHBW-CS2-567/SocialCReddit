@@ -28,13 +28,20 @@
                 $date = date_create($comment['created_at']);
                 echo '<p class="comment-meta">Commented by ' . htmlspecialchars($comment['username']) . ' on ' . date_format($date, 'F j, Y, g:i a') . '</p>';
                 echo '</div>';
-
             }
 
         } else {
             echo '<p>No comments yet.</p>';
 
         }
+        echo '</div>';
+        echo '<div class="comment">';
+        echo '<form action="include/add_comment.php" method="POST">';
+        echo '<input type="hidden" name="post_id" value="' . htmlspecialchars($post_id) . '">';
+        echo '<textarea name="comment" placeholder="Add a comment..." required></textarea>';
+        echo '<button type="submit">Submit</button>';
+        echo '</form>';
+        echo '</div>';
         echo '</div>';
     } else {
         echo '<p>No Post under this ID found.</p>';
