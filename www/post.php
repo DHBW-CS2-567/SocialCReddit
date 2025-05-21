@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <title>SocialCReddit</title>
-    <meta charset="UTF-8">
-    <?php include "header.php"; ?>
-</head>
+<?php include "header.php"; ?>
 
 <body>
     <?php
