@@ -3,12 +3,13 @@
 function getDatabaseConnection() {
     // to use, set a variable to the return value of this function.
     try{
-	$json = file_get_contents("/msql.json");
+	$file_path = __DIR__ . "/../../msql.json";
+	$json = file_get_contents($file_path);
 	if ($json === false) {
-	    throw new Exception("Failed to read msql.json.");
+	    throw new Exception("Failed to read msql.json." . $file_path);
 	}
 	// Required keys
-	$data = json_decode($json);
+	$data = json_decode($json, associative: true);
 	if ($data === null) {
 	    throw new Exception("Failed to parse JSON file.");
 	}
