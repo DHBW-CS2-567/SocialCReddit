@@ -7,7 +7,7 @@ function getDatabaseConnection() {
     $password = "";
     $dbname = "";
     try{
-	$data = json_decode(file_get_contents("../../msql.yaml"));
+	$data = json_decode(file_get_contents("../../msql.json"));
 	if ($data === false) {
 	    throw new Exception("Failed to parse YAML file.");
 	}
