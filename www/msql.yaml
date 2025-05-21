@@ -1,4 +1,6 @@
-servername: "mariadb"
-username: "root"
-password: "rootpass"
-dbname: "socialcredit"
+{
+  "servername": "mariadb",
+  "username": "root",
+  "password": "rootpass",
+  "dbname": "socialcredit"
+}
