@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-    <title>SocialCReddit</title>
-    <meta charset="UTF-8">
-    <?php include "header.php"; ?>
-    </head>
-    <body>
+<?php include "header.php"; ?>
+
+<body>
     <?php
         include "include/topicbar.php"; // Include the topic bar
 
