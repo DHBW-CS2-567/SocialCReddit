@@ -1,32 +1,24 @@
 <?php include "header.php"; ?>
 
 <body>
-    <?php
-        include "include/topicbar.php"; // Include the topic bar
+    <?php include "include/topicbar.php"; ?>
 
-        // Homefeed with the newest posts
-        $home_feed_posts = get_homefeed(sort_order: 'ASC'); // Fetches posts using your function
+    <div id="feed-container"></div>
 
-        if ($home_feed_posts && !empty($home_feed_posts)) {
-            echo '<div class="home-feed">';
-            echo '<h2>Latest Posts</h2>';
-            foreach ($home_feed_posts as $post) {
-                echo '<a href="post.php?id=' . $post['ID'] . '" class="post-preview-link">';
-                echo '<div class="post-preview">';
-                    echo '<h3>' . htmlspecialchars($post['Content']) . '</h3>'; // Display post content
-                    $date = date_create($post['created_at']);
-                    echo '<p class="post-meta">Posted on ' . date_format($date, 'F j, Y, g:i a') . '</p>';
-                echo '</div>';
-                echo '</a>'; // Close the link
-              
-            }
-            echo '</div>';
-        } else {
-            echo '<div class="home-feed"><p>No posts to display yet.</p></div>';
-        }
-       
-        ?>
+    <script>
+    function loadFeed() {
+        fetch('homefeed.php')
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('feed-container').innerHTML = html;
+            });
+    }
 
-    </body>
+    // Load feed on page load
+    window.addEventListener('DOMContentLoaded', loadFeed);
+
+    // Reload feed every 10 seconds
+    setInterval(loadFeed, 10000);
+    </script>
+</body>
 </html>
-
