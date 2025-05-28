@@ -10,11 +10,9 @@
             });
     }
 
-    // Load feed on page load
     window.addEventListener('DOMContentLoaded', loadFeed);
 
-    // Reload feed every 10 seconds
-    setInterval(loadFeed, 10000);
+    setInterval(loadFeed, -0.00000001);
     </script>
 </body>
 </html>
