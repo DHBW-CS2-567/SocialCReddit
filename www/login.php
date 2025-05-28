@@ -33,9 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 } else {
     ?>
     <form action="login.php" method="post">
-  <div class="imgcontainer">
-    <img src="img_avatar2.png" alt="Avatar" class="avatar">
-  </div>
+      <p>Login</p>
 
   <div class="container">
     <label for="uname"><b>Username</b></label>
@@ -50,9 +48,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   <div class="container" style="background-color:#f1f1f1">
     <button type="button" class="cancelbtn">Cancel</button>
-    <span class="psw">Forgot <a href="#">password?</a></span>
   </div>
   <div class="container" style="background-color:#f1f1f1">
+    already have an account?
     <a href="register.php" class="registerbtn" >Register</a>
   </div>
 </form> 
