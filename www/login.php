@@ -50,8 +50,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <button type="button" class="cancelbtn">Cancel</button>
   </div>
   <div class="container" style="background-color:#f1f1f1">
-    already have an account?
-    <a href="register.php" class="registerbtn" >Register</a>
+  don't have an account?
+  <a href="register.php" class="registerbtn" >Register</a>
   </div>
 </form> 
 <?php    
