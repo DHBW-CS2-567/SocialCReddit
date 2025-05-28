@@ -1,6 +1,6 @@
 <?php
-require "include/database/user_managment.php"; // usermangament.php
-
+require "include/database/user_managment.php"; // usermangament.
+require_once "header.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST['psw'];
