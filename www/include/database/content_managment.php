@@ -43,12 +43,13 @@ function get_post_content($post_id)
 }
 
 // function to get comments from a post via post_id for post.php
-
-
 function get_post_comments($post_id)
 {
     $conn = getDatabaseConnection();
-    $sql = 'SELECT kommentare.* FROM kommentare WHERE kommentare.PostID = ' . $post_id;
+    $sql = 'SELECT kommentare.*, users.username FROM kommentare 
+            JOIN users ON kommentare.UserID = users.ID 
+            WHERE kommentare.PostID = ' . $post_id . '
+            ORDER BY kommentare.created_at ASC';
     $result = $conn->query($sql);
     $conn->close(); // Close the database connection
     if ($result->num_rows > 0) {
