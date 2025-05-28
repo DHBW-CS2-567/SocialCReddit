@@ -8,7 +8,7 @@
     <body>
     <?php
       
-        include "include/topicbar.php"; // Include the topic bar
+        require_once "include/topicbar.php"; // Include the topic bar
         // Get the topic name from the URL
         $topic_name = isset($_GET['name']) ? $_GET['name'] : null;
         if ($topic_name) {

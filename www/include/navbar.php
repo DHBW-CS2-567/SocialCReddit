@@ -8,7 +8,7 @@
     <nav class="navbar">
         <div class="navbar-brand">
             <a href="index.php" class="navbar-logo">Social<span>CReddit</span></a>
-            <span class="navbar-tagline">DAS FORUM FÜR ALLE OHNE SCHLECHTEN HINTERGEDANKEN</span>
+            <span class="navbar-tagline">DAS FORUM FÜR ALLE OHNE SCHLECHTE HINTERGEDANKEN</span>
         </div>
         
         <div class="navbar-user-info">

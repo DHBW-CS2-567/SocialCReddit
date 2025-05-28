@@ -32,6 +32,4 @@ function getDatabaseConnection() {
         exit;
     }
 }
-
-
 ?>

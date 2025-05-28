@@ -100,15 +100,23 @@ h1 {
     margin-bottom: 10px;
 }
 
+.post-content {
+    border: 2px solid #333;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
 .imprint-container {
-    max-width: 800px; /* Limit the width of the content */
-    margin: 50px auto; /* Center the content horizontally and add vertical spacing */
-    padding: 20px; /* Add padding inside the border */
-    border: 2px solid #333; /* Add a solid border */
-    border-radius: 10px; /* Optional: Rounded corners */
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    border: 2px solid #333;
+    border-radius: 10px;
     background-color: #f9f9f9; /* Optional: Light background color */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
-    text-align: center; /* Center-align the text */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
 
 .imprint-container h1 {
@@ -136,9 +144,14 @@ h1 {
     border: none;
     font-size: 24px;
     cursor: pointer;
+    margin: 0;
     position: absolute;
-    left: 10px;
-    top: 10px;
+    top: 80%;
+    left: 50%;
+    transform: translateX(-50%);
+
+    border-radius: 50%; /* Rundes Icon */
+    border: 1px solid black; /* Weißer Rand wie im Bild */
 }
 
 .popular-topics-bar .topics-list {
@@ -184,4 +197,8 @@ h1 {
     .popular-topics-bar .topics-list.show {
         display: flex; /* Show topics when toggled */
     }
+}
+
+.reload-button {
+    display: none;
 }

@@ -1,5 +1,5 @@
 <?php
-require "database_connector.php";
+require_once "database_connector.php";
 // To be used for creating posts and comments, and to get posts and comments from the database. 
 function get_posts($topic_id = null, $topic_name = null, $limit = 10, $sort_by = "created_at", $sort_order = "DESC")
 {

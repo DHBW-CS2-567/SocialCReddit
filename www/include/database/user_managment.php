@@ -1,7 +1,7 @@
 <?php 
-include 'mysql_input_valid.php';
-include 'database_connector.php';
-include 'password_hashing.php';
+include_once 'mysql_input_valid.php';
+include_once 'database_connector.php';
+include_once 'password_hashing.php';
 
 // Function to register a new user
 function register_user($username, $password, $email){
