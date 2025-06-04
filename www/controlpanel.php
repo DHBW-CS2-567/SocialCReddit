@@ -38,8 +38,8 @@
     if (isset($_POST['make_admin'])) {
         $username = $_POST['admin_username'];
         $conn = getDatabaseConnection();
-        $sql = 'UPDATE users SET isadmin = 1 WHERE username = "' . $conn->real_escape_string($username) . '"';
-        if ($conn->query($sql) === TRUE) {
+        $sql = 'UPDATE users SET isadmin = 1 WHERE username = ?';
+        if ($conn->execute_query($sql, [$username]) === TRUE) {
             $admin_message = "User '$username' is now an admin.";
         } else {
             $admin_message = "Failed to make user admin.";
@@ -52,8 +52,8 @@
     if (isset($_POST['revoke_admin'])) {
         $username = $_POST['revoke_admin_username'];
         $conn = getDatabaseConnection();
-        $sql = 'UPDATE users SET isadmin = 0 WHERE username = "' . $conn->real_escape_string($username) . '"';
-        if ($conn->query($sql) === TRUE) {
+        $sql = 'UPDATE users SET isadmin = 0 WHERE username = ?';
+        if ($conn->execute_query($sql, [$username]) === TRUE) {
             $revoke_message = "User '$username' is no longer an admin.";
         } else {
             $revoke_message = "Failed to revoke admin status.";
@@ -64,7 +64,7 @@
     // Fetch all users for the table
     $users = [];
     $conn = getDatabaseConnection();
-    $result = $conn->query("SELECT ID, username, email, isadmin FROM users");
+    $result = $conn->execute_query("SELECT ID, username, email, isadmin FROM users");
     if ($result && $result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
             $users[] = $row;
@@ -84,7 +84,7 @@
     </form>
     <p><?php echo $create_message; ?></p>
 
-    
+
 
     <h3>All Users</h3>
     <table border="1" cellpadding="5" cellspacing="0">
