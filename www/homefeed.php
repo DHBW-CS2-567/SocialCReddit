@@ -1,6 +1,4 @@
 <?php
-require_once "header.php";
-require_once "include/topicbar.php";
 require_once "include/database/content_managment.php";
 
 $home_feed_posts = get_homefeed(sort_order: 'ASC');
