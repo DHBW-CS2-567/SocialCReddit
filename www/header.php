@@ -11,13 +11,6 @@
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <!-- jQuery UI JS -->
         <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
-
-        <script>
-            function toggleMenu() {
-                const topicsList = document.querySelector('.popular-topics-bar .topics-list');
-                topicsList.classList.toggle('show'); // Toggle the "show" class
-            }
-        </script>
     </head>
 </html>
 <?php
@@ -28,7 +21,7 @@
         }
 // Include the database connection file
 require_once "include/database/content_managment.php";
-include "include/navbar.php"; // Include the navigation bar
+require_once "include/navbar.php"; // Include the navigation bar
 
 // Check for session timeout (30 minutes of inactivity)
 if (isset($_SESSION['last_activity']) && (time() - $_SESSION['last_activity'] > 30)) {
