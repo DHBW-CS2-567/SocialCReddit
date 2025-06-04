@@ -12,7 +12,14 @@
 
     window.addEventListener('DOMContentLoaded', loadFeed);
 
-    setInterval(loadFeed, 1000);
+    <?php
+    session_start();
+    $uname_isset = isset($_SESSION['username']) ? 'true' : 'false';
+    echo 'var loggedIn = "' . $uname_isset . '";'; ?>
+
+    if(loggedIn) {
+        setInterval(loadFeed, 1000);
+    }
     </script>
 </body>
 </html>
