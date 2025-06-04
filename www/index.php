@@ -12,7 +12,7 @@
 
     window.addEventListener('DOMContentLoaded', loadFeed);
 
-    setInterval(loadFeed, 1000);
+    setInterval(loadFeed, 10000);
     </script>
 </body>
 </html>

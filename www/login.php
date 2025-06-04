@@ -1,6 +1,6 @@
 <?php
 require "include/database/user_managment.php"; // usermangament.
-/* require_once "header.php"; */
+//require_once "header.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST['psw'];
@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $url = "index.php";
         session_start(); # Neue Session oder vorhandene fortsetzen
         $user_temp_data = get_user_data($username); # Userdaten abfragen
-
+        
         $_SESSION['username'] = $user_temp_data['username']; # Session-Variable setzen
         $_SESSION['userID'] = $user_temp_data['ID']; # Session-Variable setzen
         $_SESSION['email'] = $user_temp_data['email']; # Session-Variable setzen
@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         die();
     }
 
-
+    
 } else {
     ?>
     <form action="login.php" method="post">
@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <input type="password" placeholder="Enter Password" name="psw" required>
 
     <button type="submit">Login</button>
-
+    
   </div>
 
   <div class="container" style="background-color:#f1f1f1">
@@ -53,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   don't have an account?
   <a href="register.php" class="registerbtn" >Register</a>
   </div>
-</form>
-<?php
+</form> 
+<?php    
 }
 ?>

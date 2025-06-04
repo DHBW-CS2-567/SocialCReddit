@@ -30,5 +30,21 @@
 require_once "include/database/content_managment.php";
 include "include/navbar.php"; // Include the navigation bar
 
+// Check for session timeout (30 minutes of inactivity)
+if (isset($_SESSION['last_activity']) && (time() - $_SESSION['last_activity'] > 30)) {
+    // Destroy the session
+    session_unset();
+    session_destroy();
+    
+    // Redirect to login with logout message
+    echo "<script>
+        alert('You have been logged out for inactivity');
+        window.location.href = 'login.php';
+    </script>";
+    exit();
+}
+
+// Update last activity time
+$_SESSION['last_activity'] = time();
 
 ?>
