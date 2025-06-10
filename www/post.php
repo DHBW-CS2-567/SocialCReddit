@@ -5,16 +5,17 @@
     <?php
     require_once "include/topicbar.php";
     $post_id = isset($_GET['id']) ? $_GET['id'] : null;
-    
+
     if ($post_id) {
         $post_content = get_post_content(post_id: $post_id);
         $post_comments = get_post_comments(post_id: $post_id);
-        
+
         echo '<div class="post-content">';
-        
+/* <<<<<<< HEAD */
+
         // Display post similar to comment layout
         echo '<div class="post-main">';
-        
+
         // Left side: User info, date, and likes (similar to comment layout)
         echo '<div class="post-left">';
         echo '<div class="post-user-icon">';
@@ -26,7 +27,7 @@
         echo '</div>';
         $date = date_create($post_content['DateCreated']);
         echo '<div class="post-date">' . date_format($date, 'M j, Y<br>g:i a') . '</div>';
-        
+
         // Likes section with buttons for post
         echo '<div class="post-likes-section">';
         echo '<div class="post-likes" id="post-likes-' . $post_id . '">♥ ' . htmlspecialchars($post_content['Likes']) . '</div>';
@@ -35,24 +36,34 @@
         echo '<button class="post-dislike-btn" onclick="likePost(' . $post_id . ', \'dislike\')">👎</button>';
         echo '</div>';
         echo '</div>';
-        
+
         echo '</div>'; // Close post-left
-        
+
         // Right side: Post content
         echo '<div class="post-main-content">';
         echo '<h2>' . htmlspecialchars($post_content['Content']) . '</h2>';
         echo '</div>'; // Close post-main-content
-        
+
         echo '</div>'; // Close post-main
-        
+
+/* ======= */
+/*         echo '<h2>' . htmlspecialchars($post_content['Content']) . '</h2>'; */
+/**/
+/*         $date = date_create($post_content['DateCreated']); */
+/*         echo '<div class="post-meta">'; */
+/*         echo '<p>Posted by <strong>' . htmlspecialchars($post_content['username']) . '</strong> on ' . date_format($date, 'F j, Y, g:i a') . '</p>'; */
+/*         echo '<p>Likes: ' . htmlspecialchars($post_content['Likes']) . ' | Social Credit: ' . htmlspecialchars($post_content['SocialCredit']) . '</p>'; */
+/*         echo '</div>'; */
+/**/
+/* >>>>>>> devel_IO */
         // Comments section
         echo '<div class="post-comments">';
         echo '<h3>Comments (' . (is_array($post_comments) ? count($post_comments) : 0) . ')</h3>';
-        
+
         if ($post_comments && is_array($post_comments)) {
             foreach ($post_comments as $comment) {
                 echo '<div class="comment">';
-                
+
                 // Left side: User info, date, and likes
                 echo '<div class="comment-left">';
                 echo '<div class="comment-user-icon">';
@@ -64,7 +75,7 @@
                 echo '</div>';
                 $comment_date = date_create($comment['created_at']);
                 echo '<div class="comment-date">' . date_format($comment_date, 'M j, Y<br>g:i a') . '</div>';
-                
+
                 // Likes section with buttons
                 echo '<div class="comment-likes-section">';
                 echo '<div class="comment-likes" id="likes-' . $comment['ID'] . '">♥ ' . htmlspecialchars($comment['Likes']) . '</div>';
@@ -73,18 +84,18 @@
                 echo '<button class="dislike-btn" onclick="likeComment(' . $comment['ID'] . ', \'dislike\', ' . $post_id . ')">👎</button>';
                 echo '</div>';
                 echo '</div>';
-                
+
                 echo '</div>';
-                
+
                 // Middle: Comment content
                 echo '<div class="comment-content">' . htmlspecialchars($comment['Content']) . '</div>';
-                
+
                 echo '</div>';
             }
         } else {
             echo '<div class="no-comments">No comments yet. Be the first to comment!</div>';
         }
-        
+
         // Comment form
         echo '<div class="comment-form">';
         echo '<h4>Add a Comment</h4>';
@@ -94,7 +105,7 @@
         echo '<button type="button" id="submitCommentBtn">Post Comment</button>';
         echo '</form>';
         echo '</div>';
-        
+
         echo '</div>'; // Close post-comments
         echo '</div>'; // Close post-content
     } else {
@@ -143,6 +154,13 @@
 
         // Like/Dislike functionality for comments
         function likeComment(commentId, action, postId) {
+// <<<<<<< HEAD
+// =======
+//             // Disable buttons temporarily to prevent double-clicking
+//             var likeBtn = document.querySelector('.comment .like-buttons .like-btn');
+//             var dislikeBtn = document.querySelector('.comment .like-buttons .dislike-btn');
+//
+// >>>>>>> devel_IO
             fetch('include/like_comment.php', {
                 method: 'POST',
                 headers: {
