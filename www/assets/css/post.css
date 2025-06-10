@@ -69,6 +69,13 @@ body {
     text-align: center;
 }
 
+.comment-user-info {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 4px;
+}
+
 .comment-user-icon {
     width: 48px;
     height: 48px;
@@ -224,12 +231,194 @@ body {
     margin: 20px 0;
 }
 
-/* Responsive design */
+.post-main {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    margin-bottom: 30px;
+}
+
+.post-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 120px;
+    text-align: center;
+}
+
+.post-user-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.post-user-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #e06830;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 24px;
+    margin-bottom: 12px;
+}
+
+.post-username {
+    font-weight: bold;
+    color: #333;
+    font-size: 16px;
+}
+
+.post-date {
+    font-size: 12px;
+    color: #777;
+    margin-bottom: 15px;
+    line-height: 1.2;
+}
+
+.post-likes-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.post-likes {
+    font-size: 14px;
+    color: #555;
+    background-color: #f0f0f0;
+    padding: 6px 12px;
+    border-radius: 15px;
+    border: 1px solid #ddd;
+    margin-bottom: 8px;
+}
+
+.post-like-buttons {
+    display: flex;
+    gap: 5px;
+}
+
+.post-like-btn, .post-dislike-btn {
+    background: none;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    padding: 6px 12px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.3s ease;
+    min-width: 35px;
+}
+
+.post-like-btn {
+    color: #28a745;
+    border-color: #28a745;
+}
+
+.post-like-btn:hover {
+    background-color: #28a745;
+    color: white;
+}
+
+.post-dislike-btn {
+    color: #dc3545;
+    border-color: #dc3545;
+}
+
+.post-dislike-btn:hover {
+    background-color: #dc3545;
+    color: white;
+}
+
+.post-like-btn:disabled, .post-dislike-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.post-social-credit {
+    font-size: 10px;
+    color: #e06830;
+    background-color: #fff5f0;
+    padding: 2px 6px;
+    border-radius: 8px;
+    border: 1px solid #e06830;
+    font-weight: bold;
+}
+
+.comment-social-credit {
+    font-size: 9px;
+    color: #e06830;
+    background-color: #fff5f0;
+    padding: 1px 4px;
+    border-radius: 6px;
+    border: 1px solid #e06830;
+    font-weight: bold;
+    margin-top: 8px;
+}
+
+.post-main-content {
+    flex: 1;
+    padding-left: 20px;
+}
+
+.post-main-content h2 {
+    margin-top: 0;
+    text-align: left;
+}
+
+/* Update responsive design */
 @media (max-width: 768px) {
     .post-content {
         margin: 10px;
         padding: 15px;
         max-width: 95%;
+    }
+    
+    .post-main {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .post-left {
+        flex-direction: row;
+        align-items: center;
+        min-width: auto;
+        width: 100%;
+        justify-content: flex-start;
+        gap: 15px;
+    }
+    
+    .post-user-info {
+        flex-direction: row;
+        gap: 8px;
+    }
+    
+    .post-user-icon {
+        width: 48px;
+        height: 48px;
+        font-size: 18px;
+    }
+    
+    .post-likes-section {
+        flex-direction: row;
+        gap: 10px;
+        align-items: center;
+    }
+    
+    .post-like-buttons {
+        flex-direction: row;
+        gap: 5px;
+    }
+    
+    .post-main-content {
+        padding-left: 0;
+    }
+    
+    .post-main-content h2 {
+        text-align: center;
     }
     
     .comment {
@@ -247,6 +436,11 @@ body {
         gap: 15px;
     }
     
+    .comment-user-info {
+        flex-direction: row;
+        gap: 6px;
+    }
+    
     .comment-user-icon {
         display: none; /* Hide profile pictures on smaller screens */
     }
@@ -262,10 +456,42 @@ body {
 }
 
 @media (max-width: 480px) {
+    .post-left {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .post-user-info {
+        flex-direction: row;
+        gap: 6px;
+    }
+    
+    .post-user-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+    }
+    
+    .post-likes-section {
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .post-like-buttons {
+        flex-direction: row;
+        gap: 5px;
+    }
+    
     .comment-left {
         flex-direction: column;
         align-items: center;
         text-align: center;
+    }
+    
+    .comment-user-info {
+        flex-direction: row;
+        gap: 4px;
     }
     
     .comment-user-icon {
