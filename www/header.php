@@ -30,8 +30,14 @@
 require_once "include/database/content_managment.php";
 include "include/navbar.php"; // Include the navigation bar
 
-// Check for session timeout (30 minutes of inactivity)
-if (isset($_SESSION['last_activity']) && (time() - $_SESSION['last_activity'] > 30)) {
+// Read timeout from msql.json configuration file
+$file_path = __DIR__ . "/msql.json";
+$json = file_get_contents($file_path);
+$config_data = json_decode($json, true);
+$session_timeout = isset($config_data['timeout']) ? $config_data['timeout'] : 30; // Default to 30 if not found
+
+// Check for session timeout using the configured timeout value
+if (isset($_SESSION['last_activity']) && (time() - $_SESSION['last_activity'] > $session_timeout)) {
     // Destroy the session
     session_unset();
     session_destroy();
