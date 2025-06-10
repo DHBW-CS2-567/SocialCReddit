@@ -55,6 +55,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
                 <br>
                 <button type="button" id="createPostBtn">Create Post</button>
+                <input id="export" type="button" value="Export" onclick="download();" />
+                <input id="import" type="button" value="Import" onclick="document.getElementById('importFile').click();" />
+                <input type="file" id="importFile" accept=".json" style="display: none;" onchange="importPost();" />
             </div>
         </form>
     </div>
@@ -113,6 +116,49 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $("#confirmPostDialog").dialog("open");
             });
         });
+
+        function download() {
+            // Erstelle strukturierte JSON-Ausgabe
+            var postData = {
+                topic: $("#topic_input").val(),
+                content: $("textarea[name='content']").val(),
+                timestamp: new Date().toISOString()
+            };
+            
+            var formData = JSON.stringify(postData, null, 2);
+            var a = document.createElement("a");
+            var file = new Blob([formData], {type: 'application/json'});
+            a.href = URL.createObjectURL(file);
+            a.download = "post.json";
+            a.click();
+        }
+
+        function importPost() {
+            const fileInput = document.getElementById('importFile');
+            const file = fileInput.files[0];
+            
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const postData = JSON.parse(e.target.result);
+                    
+                    // Fülle die Form-Felder mit den importierten Daten
+                    if (postData.topic) {
+                        $("#topic_input").val(postData.topic);
+                    }
+                    if (postData.content) {
+                        $("textarea[name='content']").val(postData.content);
+                    }
+                } catch (error) {
+                    alert('Error parsing JSON file: ' + error.message);
+                }
+            };
+            
+            reader.readAsText(file);
+        }
+        
     </script>
 
 </body>
