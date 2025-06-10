@@ -75,7 +75,7 @@
             // Handle submit comment button click
             $("#submitCommentBtn").click(function() {
                 var commentText = $("#commentTextarea").val();
-                
+
                 if (commentText.trim() === "") {
                     alert("Please enter a comment before submitting.");
                     return;
@@ -83,7 +83,7 @@
 
                 // Update confirmation dialog with current comment
                 $("#confirmCommentContent").text(commentText.length > 150 ? commentText.substring(0, 150) + "..." : commentText);
-                
+
                 // Show confirmation dialog
                 $("#confirmCommentDialog").dialog("open");
             });

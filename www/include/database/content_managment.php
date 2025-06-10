@@ -1,21 +1,24 @@
 <?php
 require_once "database_connector.php";
-// To be used for creating posts and comments, and to get posts and comments from the database. 
+// To be used for creating posts and comments, and to get posts and comments from the database.
 function get_posts($topic_id = null, $topic_name = null, $limit = 10, $sort_by = "created_at", $sort_order = "DESC")
 {
     $conn = getDatabaseConnection();
     if ($topic_id) {
         // If topic_id is provided, fetch posts for that topic
-        $sql = 'SELECT * FROM posts WHERE TopicID = "' . $topic_id . '" ORDER BY "' . $sort_by . '" "' . $sort_order . '"LIMIT ' . $limit;
+        /* $sql = 'SELECT * FROM posts WHERE TopicID = "' . $topic_id . '" ORDER BY "' . $sort_by . '" "' . $sort_order . '"LIMIT ' . $limit; */
+        $sql = ['SELECT * FROM posts WHERE TopicID = ? ORDER BY ? ' . (($sort_order == "ASC")? "ASC":"DESC")  . ' LIMIT ' . (int)$limit, [$topic_id, $sort_by]];
     } elseif ($topic_name) {
         // If topic_name is provided, fetch posts for that topic
-        $sql = 'SELECT * FROM posts WHERE TopicID = (SELECT `ID` FROM topic WHERE topic.name = "' . $topic_name . '") ORDER BY "' . $sort_by . '" "' . $sort_order . '"LIMIT ' . $limit;
+        /* $sql = 'SELECT * FROM posts WHERE TopicID = (SELECT `ID` FROM topic WHERE topic.name = "' . $topic_name . '") ORDER BY "' . $sort_by . '" "' . $sort_order . '"LIMIT ' . $limit; */
+        $sql = ['SELECT * FROM posts WHERE TopicID = (SELECT `ID` FROM topic WHERE topic.name = ?) ORDER BY ? '. (($sort_order == "ASC")? "ASC":"DESC") .' LIMIT ' . (int)$limit, [$topic_name, $sort_by]];
     } else {
         // If neither is provided, fetch all posts
-        $sql = 'SELECT * FROM posts ORDER BY "' . $sort_by . '" "' . $sort_order . '"LIMIT ' . $limit;
+        /* $sql = 'SELECT * FROM posts ORDER BY "' . $sort_by . '" "' . $sort_order . '"LIMIT ' . $limit; */
+        $sql = ['SELECT * FROM posts ORDER BY ? ' . (($sort_order == "ASC")? "ASC":"DESC") . ' LIMIT ' . (int)$limit, [$sort_by]];
     }
 
-    $result = $conn->query($sql);
+    $result = $conn->execute_query($sql[0], $sql[1]);
     $conn->close(); // Close the database connection
 
     if ($result->num_rows > 0) {
@@ -35,8 +38,8 @@ function get_posts($topic_id = null, $topic_name = null, $limit = 10, $sort_by =
 function get_post_content($post_id)
 {
     $conn = getDatabaseConnection();
-    $sql = 'SELECT post.Content, post.TopicID, post.Likes, post.Pinned, user.ID, user.username, user.DateCreated, user.SocialCredit, user.isadmin, user.email FROM posts AS post JOIN users AS user ON post.UserID = user.ID WHERE post.ID = ' . $post_id;
-    $result = $conn->query($sql);
+    $sql = 'SELECT post.Content, post.TopicID, post.Likes, post.Pinned, user.ID, user.username, user.DateCreated, user.SocialCredit, user.isadmin, user.email FROM posts AS post JOIN users AS user ON post.UserID = user.ID WHERE post.ID = ?';
+    $result = $conn->execute_query($sql, [$post_id]);
     $conn->close();
     $result = $result->fetch_assoc();
     return $result;
@@ -46,11 +49,11 @@ function get_post_content($post_id)
 function get_post_comments($post_id)
 {
     $conn = getDatabaseConnection();
-    $sql = 'SELECT kommentare.*, users.username FROM kommentare 
-            JOIN users ON kommentare.UserID = users.ID 
-            WHERE kommentare.PostID = ' . $post_id . '
+    $sql = 'SELECT kommentare.*, users.username FROM kommentare
+            JOIN users ON kommentare.UserID = users.ID
+            WHERE kommentare.PostID = ?
             ORDER BY kommentare.created_at ASC';
-    $result = $conn->query($sql);
+    $result = $conn->execute_query($sql, [$post_id]);
     $conn->close(); // Close the database connection
     if ($result->num_rows > 0) {
         $comments = array();
@@ -71,13 +74,13 @@ function get_topics($limit = 10, $sort_by = "popular")
         $sql = 'SELECT * FROM topic ORDER BY (SELECT COUNT(*) FROM posts WHERE posts.TopicID = topic.ID) DESC';
     } else {
         if ($sort_by == "popular") {
-            $sql = 'SELECT * FROM topic ORDER BY (SELECT COUNT(*) FROM posts WHERE posts.TopicID = topic.ID) DESC LIMIT ' . $limit;
+            $sql = 'SELECT * FROM topic ORDER BY (SELECT COUNT(*) FROM posts WHERE posts.TopicID = topic.ID) DESC LIMIT ' . (int)$limit;
         } else {
             // select topics with the most likes
-            $sql = 'SELECT * FROM topic ORDER BY ID DESC LIMIT ' . $limit;
+            $sql = 'SELECT * FROM topic ORDER BY ID DESC LIMIT ' . (int)$limit;
         }
     }
-    $result = $conn->query($sql);
+    $result = $conn->execute_query($sql, []);
     $conn->close(); // Close the database connection
 
     if ($result->num_rows > 0) {
@@ -97,8 +100,9 @@ function get_topics($limit = 10, $sort_by = "popular")
 function get_homefeed($limit = 10, $sort_by = "created_at", $sort_order = "ASC")
 {
     $conn = getDatabaseConnection();
-    $sql = 'SELECT * FROM posts ORDER BY "' . $sort_by . '" "' . $sort_order . '"LIMIT ' . $limit;
-    $result = $conn->query($sql);
+    $limit = (int) $limit;
+    $sql = 'SELECT * FROM posts ORDER BY ? ' . (($sort_order == "ASC")? "ASC":"DESC") . ' LIMIT ' . $limit;
+    $result = $conn->execute_query($sql, [$sort_by]);
     $conn->close(); // Close the database connection
 
     if ($result->num_rows > 0) {
@@ -115,8 +119,8 @@ function get_homefeed($limit = 10, $sort_by = "created_at", $sort_order = "ASC")
 function create_topic($name)
 {
     $conn = getDatabaseConnection();
-    $sql = 'INSERT INTO topic (Name) VALUES ("' . $name . '")';
-    $result = $conn->query($sql);
+    $sql = 'INSERT INTO topic (Name) VALUES (?)';
+    $result = $conn->execute_query($sql, [$name]);
     if ($result) {
         $topic_id = $conn->insert_id; // Get the ID of the newly created topic
         $conn->close(); // Close the database connection
@@ -128,15 +132,16 @@ function create_post($userid, $topic, $content)
 {
     $conn = getDatabaseConnection();
 
-    $check_topic = 'SELECT * FROM topic WHERE Name = "' . $topic . '"';
-    $check_result = $conn->query($check_topic);
+    $check_topic = 'SELECT * FROM topic WHERE Name = ?';
+    $check_result = $conn->execute_query($check_topic, [$topic]);
     if ($check_result->num_rows > 0) {
         $topicid = $check_result->fetch_assoc()['ID']; // Get the ID of the existing topic
     } else {
         $topicid = create_topic($topic); // Create the topic if it doesn't exist
     }
-    $sql = 'INSERT INTO posts (TopicID, UserID, Content, Likes, Pinned) VALUES (' . $topicid . ', ' . $userid . ', "' . $content . '", 0, 0)';
-    $result = $conn->query($sql);
+    /* $sql = 'INSERT INTO posts (TopicID, UserID, Content, Likes, Pinned) VALUES (' . $topicid . ', ' . $userid . ', "' . $content . '", 0, 0)'; */
+    $sql = 'INSERT INTO posts (TopicID, UserID, Content, Likes, Pinned) VALUES ( ?, ?, ?, 0, 0)';
+    $result = $conn->execute_query($sql, [$topicid, $userid, $content]);
 
     if ($result) {
         $post_id = $conn->insert_id; // Get the ID of the newly created post
@@ -144,6 +149,6 @@ function create_post($userid, $topic, $content)
         return $post_id; // Return the ID of the new post
     } else {
         $conn->close(); // Close the database connection
-        return false; // Return false if the post creation failed    
+        return false; // Return false if the post creation failed
     }
 }

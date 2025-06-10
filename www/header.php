@@ -34,7 +34,7 @@ if (isset($_SESSION['last_activity']) && (time() - $_SESSION['last_activity'] > 
     // Destroy the session
     session_unset();
     session_destroy();
-    
+
     // Redirect to login with logout message
     echo "<script>
         alert('You have been logged out for inactivity');
