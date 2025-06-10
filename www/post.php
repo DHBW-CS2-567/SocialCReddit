@@ -30,10 +30,10 @@
         }
         echo '</div>';
         echo '<div class="comment">';
-        echo '<form action="include/add_comment.php" method="POST">';
+        echo '<form action="include/add_comment.php" method="POST" id="commentForm">';
         echo '<input type="hidden" name="post_id" value="' . htmlspecialchars($post_id) . '">';
-        echo '<textarea name="comment" placeholder="Add a comment..." required></textarea>';
-        echo '<button type="submit">Submit</button>';
+        echo '<textarea name="comment" placeholder="Add a comment..." required id="commentTextarea"></textarea>';
+        echo '<button type="button" id="submitCommentBtn">Submit</button>';
         echo '</form>';
         echo '</div>';
         echo '</div>';
@@ -41,9 +41,55 @@
         echo '<p>No Post under this ID found.</p>';
         exit();
     }
-
-
     ?>
+
+    <!-- Confirmation Dialog for Comments -->
+    <div id="confirmCommentDialog" title="Confirm Comment" style="display: none;">
+        <p>Are you sure you want to post this comment?</p>
+        <div style="margin-top: 15px;">
+            <strong>Your comment:</strong><br>
+            <span id="confirmCommentContent" style="font-style: italic;"></span>
+        </div>
+    </div>
+
+    <script>
+        $(function() {
+            // Initialize confirmation dialog
+            $("#confirmCommentDialog").dialog({
+                autoOpen: false,
+                modal: true,
+                width: 400,
+                height: 250,
+                resizable: false,
+                buttons: {
+                    "Yes, Post Comment": function() {
+                        $(this).dialog("close");
+                        $("#commentForm").submit();
+                    },
+                    "Cancel": function() {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+
+            // Handle submit comment button click
+            $("#submitCommentBtn").click(function() {
+                var commentText = $("#commentTextarea").val();
+                
+                if (commentText.trim() === "") {
+                    alert("Please enter a comment before submitting.");
+                    return;
+                }
+
+                // Update confirmation dialog with current comment
+                $("#confirmCommentContent").text(commentText.length > 150 ? commentText.substring(0, 150) + "..." : commentText);
+                
+                // Show confirmation dialog
+                $("#confirmCommentDialog").dialog("open");
+            });
+        });
+    </script>
+
 </body>
 
 </html>
