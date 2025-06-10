@@ -46,7 +46,7 @@ function get_post_content($post_id)
 function get_post_comments($post_id)
 {
     $conn = getDatabaseConnection();
-    $sql = 'SELECT kommentare.*, users.username FROM kommentare 
+    $sql = 'SELECT kommentare.*, users.username, users.SocialCredit FROM kommentare 
             JOIN users ON kommentare.UserID = users.ID 
             WHERE kommentare.PostID = ' . $post_id . '
             ORDER BY kommentare.created_at ASC';
