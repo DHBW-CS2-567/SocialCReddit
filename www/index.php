@@ -19,6 +19,7 @@
     //Merge conflict
     window.addEventListener('DOMContentLoaded', loadFeed);
 
+
     setInterval(loadFeed, 10000);
 
     </script>

@@ -1,59 +1,73 @@
 <?php
-require "include/database/user_managment.php"; // usermangament.
-//require_once "header.php";
+require "include/database/user_managment.php";
+
+$error_message = "";
+$success_message = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST['psw'];
     $username = $_POST['uname'];
-    $output = login_user($username, $password); // Call the function to handle login
+    $output = login_user($username, $password);
+    
     if ($output) {
-        $url = "index.php";
-        session_start(); # Neue Session oder vorhandene fortsetzen
-        $user_temp_data = get_user_data($username); # Userdaten abfragen
+        session_start();
+        $user_temp_data = get_user_data($username);
         
-        $_SESSION['username'] = $user_temp_data['username']; # Session-Variable setzen
-        $_SESSION['userID'] = $user_temp_data['ID']; # Session-Variable setzen
-        $_SESSION['email'] = $user_temp_data['email']; # Session-Variable setzen
-        $_SESSION['socialcredit'] = $user_temp_data['SocialCredit']; # Session-Variable setzen
-        $_SESSION['isadmin'] = $user_temp_data['isadmin']; # Session-Variable setzen
+        $_SESSION['username'] = $user_temp_data['username'];
+        $_SESSION['userID'] = $user_temp_data['ID'];
+        $_SESSION['email'] = $user_temp_data['email'];
+        $_SESSION['socialcredit'] = $user_temp_data['SocialCredit'];
+        $_SESSION['isadmin'] = $user_temp_data['isadmin'];
 
-        $SessionTimeOut = 180; # Timeout in Sekunden -> ggf. aus Config-Datei
-        header('Location: '.$url);
-        die();
-        // Redirect to index.php or another page
+        header('Location: index.php');
+        exit();
     } else {
-        echo "Login failed. Please try again.";
-        sleep(2);
-        $url = "login.php";
-        header('Location: '.$url);
-        die();
+        $error_message = "Login failed. Invalid username or password.";
     }
-
-    
-} else {
-    ?>
-    <form action="login.php" method="post">
-      <p>Login</p>
-
-  <div class="container">
-    <label for="uname"><b>Username</b></label>
-    <input type="text" placeholder="Enter Username" name="uname" required>
-    <br>
-    <label for="psw"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="psw" required>
-
-    <button type="submit">Login</button>
-    
-  </div>
-
-  <div class="container" style="background-color:#f1f1f1">
-    <button type="button" class="cancelbtn">Cancel</button>
-  </div>
-  <div class="container" style="background-color:#f1f1f1">
-  don't have an account?
-  <a href="register.php" class="registerbtn" >Register</a>
-  </div>
-</form> 
-<?php    
 }
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - SocialCReddit</title>
+    <link rel="stylesheet" href="assets/css/auth.css">
+</head>
+<body>
+    <div class="auth-container">
+        <div class="logo">Social<span>CReddit</span></div>
+        <div class="tagline">DAS FORUM FÜR ALLE OHNE SCHLECHTE HINTERGEDANKEN</div>
+        
+        <h2>Login</h2>
+        
+        <?php if ($error_message): ?>
+            <div class="error-message"><?php echo htmlspecialchars($error_message); ?></div>
+        <?php endif; ?>
+        
+        <?php if ($success_message): ?>
+            <div class="success-message"><?php echo htmlspecialchars($success_message); ?></div>
+        <?php endif; ?>
+
+        <form action="login.php" method="post">
+            <div class="form-group">
+                <label for="uname">Username</label>
+                <input type="text" placeholder="Enter Username" name="uname" id="uname" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="psw">Password</label>
+                <input type="password" placeholder="Enter Password" name="psw" id="psw" required>
+            </div>
+
+            <button type="submit" class="auth-button">Login</button>
+            <button type="button" class="cancel-button" onclick="window.location.href='index.php'">Cancel</button>
+        </form>
+
+        <div class="auth-link">
+            Don't have an account? <a href="register.php">Register here</a>
+        </div>
+    </div>
+</body>
+</html>

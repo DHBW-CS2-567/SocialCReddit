@@ -42,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     ?>
     <div class="create">
         <h2>Create a New Post</h2>
-        <form action="create.php" method="post">
+        <form action="create.php" method="post" id="createPostForm">
             <div id="create_form">
                 <div>
                     <label for="topic"><b>Topic</b></label><br>
@@ -51,12 +51,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <br>
                 <div>
                     <label for="content"><b>Content</b></label><br>
-                    <textarea placeholder="I have something to tell" name="content" rows="5" cols="50" required></textarea>
+                    <textarea placeholder="I have something to tell" name="content" rows="5" cols="50" required id="post_content"></textarea>
                 </div>
                 <br>
-                <button type="submit">Create Post</button>
+                <button type="button" id="createPostBtn">Create Post</button>
             </div>
         </form>
+    </div>
+
+    <!-- Confirmation Dialog -->
+    <div id="confirmPostDialog" title="Confirm Post Creation" style="display: none;">
+        <p>Are you sure you want to create this post?</p>
+        <div style="margin-top: 15px;">
+            <strong>Topic:</strong> <span id="confirmTopic"></span><br>
+            <strong>Content:</strong> <span id="confirmContent"></span>
+        </div>
     </div>
 
     <script>
@@ -66,6 +75,42 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             var availableTopics = <?php echo json_encode($topic_names); ?>;
             $("#topic_input").autocomplete({
                 source: availableTopics
+            });
+
+            // Initialize confirmation dialog
+            $("#confirmPostDialog").dialog({
+                autoOpen: false,
+                modal: true,
+                width: 400,
+                height: 300,
+                resizable: false,
+                buttons: {
+                    "Yes, Create Post": function() {
+                        $(this).dialog("close");
+                        $("#createPostForm").submit();
+                    },
+                    "Cancel": function() {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+
+            // Handle create post button click
+            $("#createPostBtn").click(function() {
+                var topic = $("#topic_input").val();
+                var content = $("#post_content").val();
+                
+                if (topic.trim() === "" || content.trim() === "") {
+                    alert("Please fill in all fields.");
+                    return;
+                }
+
+                // Update confirmation dialog with current values
+                $("#confirmTopic").text(topic);
+                $("#confirmContent").text(content.length > 100 ? content.substring(0, 100) + "..." : content);
+                
+                // Show confirmation dialog
+                $("#confirmPostDialog").dialog("open");
             });
         });
     </script>
