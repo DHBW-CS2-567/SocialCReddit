@@ -26,17 +26,30 @@
         if ($post_comments && is_array($post_comments)) {
             foreach ($post_comments as $comment) {
                 echo '<div class="comment">';
-                echo '<div class="comment-header">';
+                
+                // Left side: User info, date, and likes
+                echo '<div class="comment-left">';
                 echo '<div class="comment-user-icon">';
                 echo strtoupper(substr($comment['username'], 0, 1));
                 echo '</div>';
-                echo '<div class="comment-user-info">';
                 echo '<div class="comment-username">' . htmlspecialchars($comment['username']) . '</div>';
                 $comment_date = date_create($comment['created_at']);
-                echo '<div class="comment-meta">Posted on ' . date_format($comment_date, 'F j, Y, g:i a') . '</div>';
+                echo '<div class="comment-date">' . date_format($comment_date, 'M j, Y<br>g:i a') . '</div>';
+                
+                // Likes section with buttons
+                echo '<div class="comment-likes-section">';
+                echo '<div class="comment-likes" id="likes-' . $comment['ID'] . '">♥ ' . htmlspecialchars($comment['Likes']) . '</div>';
+                echo '<div class="like-buttons">';
+                echo '<button class="like-btn" onclick="likeComment(' . $comment['ID'] . ', \'like\', ' . $post_id . ')">👍</button>';
+                echo '<button class="dislike-btn" onclick="likeComment(' . $comment['ID'] . ', \'dislike\', ' . $post_id . ')">👎</button>';
                 echo '</div>';
                 echo '</div>';
+                
+                echo '</div>';
+                
+                // Middle: Comment content
                 echo '<div class="comment-content">' . htmlspecialchars($comment['Content']) . '</div>';
+                
                 echo '</div>';
             }
         } else {
@@ -73,6 +86,34 @@
     </div>
 
     <script>
+        // Like/Dislike functionality
+        function likeComment(commentId, action, postId) {
+            // Disable buttons temporarily to prevent double-clicking
+            var likeBtn = document.querySelector('.comment .like-buttons .like-btn');
+            var dislikeBtn = document.querySelector('.comment .like-buttons .dislike-btn');
+            
+            fetch('include/like_comment.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: 'comment_id=' + commentId + '&action=' + action + '&post_id=' + postId
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Update the likes display
+                    document.getElementById('likes-' + commentId).innerHTML = '♥ ' + data.new_likes;
+                } else {
+                    alert('Error: ' + (data.error || 'Unknown error occurred'));
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while updating the like count.');
+            });
+        }
+
         $(function() {
             // Initialize confirmation dialog
             $("#confirmCommentDialog").dialog({
