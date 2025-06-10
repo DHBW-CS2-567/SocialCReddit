@@ -1,6 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
+
 body {
-    font-family: Arial, sans-serif;
-    font-weight: bold;
+    font-family: "Archivo Black", sans-serif;
+    font-weight: 100;
     line-height: 1.6;
     margin: 10px;
     padding: 0;
@@ -246,7 +248,7 @@ body {
     }
     
     .comment-user-icon {
-        margin-bottom: 0;
+        display: none; /* Hide profile pictures on smaller screens */
     }
     
     .comment-likes-section {
@@ -267,10 +269,7 @@ body {
     }
     
     .comment-user-icon {
-        width: 40px;
-        height: 40px;
-        font-size: 16px;
-        margin-bottom: 8px;
+        display: none; /* Ensure profile pictures stay hidden */
     }
     
     .comment-likes-section {
