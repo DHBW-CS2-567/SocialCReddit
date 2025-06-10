@@ -1,7 +1,6 @@
 <?php
 session_start();
 require_once "database/content_managment.php";
-require_once "database/mysql_input_valid.php";
 
 // Check if user is logged in
 if (!isset($_SESSION['username']) || !isset($_SESSION['userID'])) {
@@ -15,19 +14,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $user_id = $_SESSION['userID'];
 
     // Validate inputs
-    if (!$post_id || !$comment_content || !sqlinjection_test($comment_content)) {
+    if (!$post_id || !$comment_content) {
         header('Location: ../post.php?id=' . $post_id . '&error=invalid_input');
         exit();
     }
 
-    // Add comment to database
     $conn = getDatabaseConnection();
-    $sql = 'INSERT INTO kommentare (PostID, Content, UserID, Likes) VALUES (' . 
-           intval($post_id) . ', "' . 
-           $conn->real_escape_string($comment_content) . '", ' . 
-           intval($user_id) . ', 0)';
-    
-    if ($conn->query($sql) === TRUE) {
+    $sql = 'INSERT INTO kommentare (PostID, Content, UserID, Likes) VALUES ( ?, ?, ?, 0 )';
+
+    if ($conn->execute_query($sql, [$post_id, $comment_content, intval($user_id)]) === TRUE) {
         $conn->close();
         header('Location: ../post.php?id=' . $post_id . '&success=comment_added');
     } else {
