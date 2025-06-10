@@ -52,6 +52,8 @@
         </div>
     </div>
 
+    <script src="assets/js/main.js"></script>
+
     <script>
         $(function() {
             // Initialize confirmation dialog
