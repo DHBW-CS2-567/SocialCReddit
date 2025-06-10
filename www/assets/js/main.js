@@ -18,7 +18,7 @@ function loadFeed() {
 // Initialize when DOM is loaded
 window.addEventListener('DOMContentLoaded', function() {
     loadFeed();
-    
+
     // Start auto-refresh if user is logged in
     if (typeof loggedIn !== 'undefined' && loggedIn === 'true') {
         setInterval(loadFeed, 1000);

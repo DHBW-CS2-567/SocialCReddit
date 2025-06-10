@@ -7,15 +7,15 @@ function get_posts($topic_id = null, $topic_name = null, $limit = 10, $sort_by =
     if ($topic_id) {
         // If topic_id is provided, fetch posts for that topic
         /* $sql = 'SELECT * FROM posts WHERE TopicID = "' . $topic_id . '" ORDER BY "' . $sort_by . '" "' . $sort_order . '"LIMIT ' . $limit; */
-        $sql = ['SELECT * FROM posts WHERE TopicID = ? ORDER BY ? ? LIMIT ?', [$topic_id, $sort_by, $sort_order, $limit]];
+        $sql = ['SELECT * FROM posts WHERE TopicID = ? ORDER BY ? ' . (($sort_order == "ASC")? "ASC":"DESC")  . ' LIMIT ' . (int)$limit, [$topic_id, $sort_by]];
     } elseif ($topic_name) {
         // If topic_name is provided, fetch posts for that topic
         /* $sql = 'SELECT * FROM posts WHERE TopicID = (SELECT `ID` FROM topic WHERE topic.name = "' . $topic_name . '") ORDER BY "' . $sort_by . '" "' . $sort_order . '"LIMIT ' . $limit; */
-        $sql = ['SELECT * FROM posts WHERE TopicID = (SELECT `ID` FROM topic WHERE topic.name = ?) ORDER BY ? ? LIMIT ?', [$topic_name, $sort_by, $sort_order, $limit]];
+        $sql = ['SELECT * FROM posts WHERE TopicID = (SELECT `ID` FROM topic WHERE topic.name = ?) ORDER BY ? '. (($sort_order == "ASC")? "ASC":"DESC") .' LIMIT ' . (int)$limit, [$topic_name, $sort_by]];
     } else {
         // If neither is provided, fetch all posts
         /* $sql = 'SELECT * FROM posts ORDER BY "' . $sort_by . '" "' . $sort_order . '"LIMIT ' . $limit; */
-        $sql = ['SELECT * FROM posts ORDER BY ? ? LIMIT ?', [$sort_by, $sort_order, $limit]];
+        $sql = ['SELECT * FROM posts ORDER BY ? ' . (($sort_order == "ASC")? "ASC":"DESC") . ' LIMIT ' . (int)$limit, [$sort_by]];
     }
 
     $result = $conn->execute_query($sql[0], $sql[1]);
@@ -74,13 +74,13 @@ function get_topics($limit = 10, $sort_by = "popular")
         $sql = 'SELECT * FROM topic ORDER BY (SELECT COUNT(*) FROM posts WHERE posts.TopicID = topic.ID) DESC';
     } else {
         if ($sort_by == "popular") {
-            $sql = 'SELECT * FROM topic ORDER BY (SELECT COUNT(*) FROM posts WHERE posts.TopicID = topic.ID) DESC LIMIT ?';
+            $sql = 'SELECT * FROM topic ORDER BY (SELECT COUNT(*) FROM posts WHERE posts.TopicID = topic.ID) DESC LIMIT ' . (int)$limit;
         } else {
             // select topics with the most likes
-            $sql = 'SELECT * FROM topic ORDER BY ID DESC LIMIT ?';
+            $sql = 'SELECT * FROM topic ORDER BY ID DESC LIMIT ' . (int)$limit;
         }
     }
-    $result = $conn->execute_query($sql, [$limit]);
+    $result = $conn->execute_query($sql, []);
     $conn->close(); // Close the database connection
 
     if ($result->num_rows > 0) {
@@ -100,9 +100,9 @@ function get_topics($limit = 10, $sort_by = "popular")
 function get_homefeed($limit = 10, $sort_by = "created_at", $sort_order = "ASC")
 {
     $conn = getDatabaseConnection();
-    /* $sql = 'SELECT * FROM posts ORDER BY "' . $sort_by . '" "' . $sort_order . '"LIMIT ' . $limit; */
-    $sql = 'SELECT * FROM posts ORDER BY ? ? LIMIT ?';
-    $result = $conn->execute_query($sql, [$sort_by, $sort_order, $limit]);
+    $limit = (int) $limit;
+    $sql = 'SELECT * FROM posts ORDER BY ? ' . (($sort_order == "ASC")? "ASC":"DESC") . ' LIMIT ' . $limit;
+    $result = $conn->execute_query($sql, [$sort_by]);
     $conn->close(); // Close the database connection
 
     if ($result->num_rows > 0) {

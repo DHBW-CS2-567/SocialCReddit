@@ -22,7 +22,7 @@
     setInterval(loadFeed, 10000);
 
     </script>
-    
+
     <script src="assets/js/main.js"></script>
 </body>
 </html>
